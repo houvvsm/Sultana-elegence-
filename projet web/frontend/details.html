@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détails | Sultana Élégance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon.png">
+  <meta name="theme-color" content="#c8a24a">
+  <style>
+    .sizes-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+    .size-chip {
+      min-width: 48px; height: 48px; border-radius: 14px;
+      border: 1.5px solid var(--border-gold);
+      background: var(--bg-secondary);
+      display: grid; place-items: center;
+      font-weight: 800; font-size: 0.92rem;
+      color: var(--text-primary);
+    }
+    .detail-loading {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 320px; color: var(--text-muted); font-size: 1rem;
+      grid-column: 1 / -1;
+    }
+  </style>
+</head>
+<body data-page="page">
+  <!-- Preloader -->
+  <div class="preloader">
+    <img src="assets/images/logo.png" alt="Sultana Élégance" class="preloader-logo">
+    <div class="preloader-bar"></div>
+    <p class="preloader-text">Préparation de votre expérience</p>
+  </div>
+
+  <!-- Cinematic Overlays -->
+  <div class="vignette"></div>
+  <div class="film-grain"></div>
+  <canvas id="particles-canvas"></canvas>
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Accueil Sultana Élégance">
+      <img src="assets/images/logo.png" alt="Logo Sultana Élégance">
+      <span>Sultana Élégance</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="partenaires.html">Partenaires</a>
+      <a href="client.html">Espace cliente</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+        <span class="icon-sun" style="font-size:0.8rem;z-index:1;">☀</span>
+        <span class="icon-moon" style="font-size:0.8rem;z-index:1;">☾</span>
+        <span class="toggle-thumb"></span>
+      </button>
+    </nav>
+  </header>
+
+  <nav class="breadcrumbs" aria-label="Fil d'Ariane">
+    <a href="index.html">Accueil</a> &rsaquo;
+    <a href="catalogue.html">Catalogue</a> &rsaquo;
+    <span class="current" id="breadcrumbName">Chargement…</span>
+  </nav>
+
+  <main>
+    <section class="section detail-layout">
+
+      <!-- GALLERY -->
+      <div class="gallery reveal">
+        <div class="gallery-main img-reveal">
+          <img src="assets/images/caftan1.jpg" alt="Caftan" id="galleryMainImg">
+        </div>
+        <div class="gallery-thumbs" id="galleryThumbs">
+          <!-- filled by JS -->
+        </div>
+      </div>
+
+      <!-- DETAIL COPY -->
+      <article class="detail-copy reveal">
+        <p class="eyebrow" id="detailEyebrow">Pièce signature</p>
+        <h1 class="split-text" id="detailName">Chargement…</h1>
+        <p id="detailDesc" style="color:var(--text-muted);line-height:1.7;margin:16px 0;"></p>
+
+        <!-- Sizes -->
+        <div class="sizes-row" id="detailSizes"></div>
+
+        <ul class="detail-list" id="detailList">
+          <li>Livraison à domicile sur Casablanca, Rabat et Marrakech</li>
+          <li>Nettoyage premium inclus</li>
+          <li>Emballage soigné</li>
+        </ul>
+
+        <div style="margin: 18px 0;">
+          <button class="button button-ghost" data-modal="size-guide-modal"
+                  style="font-size:0.9rem;padding:10px 18px;min-height:40px;">
+            📏 Guide des tailles
+          </button>
+        </div>
+
+        <div class="detail-price" id="detailPrice">— <span>/ jour</span></div>
+
+        <a class="button button-primary" id="bookBtn" href="location.html">
+          Louer maintenant
+        </a>
+      </article>
+    </section>
+  </main>
+
+  <!-- Size Guide Modal -->
+  <div class="modal-overlay" id="size-guide-modal">
+    <div class="modal">
+      <button class="modal-close" aria-label="Fermer">&times;</button>
+      <p class="eyebrow">Guide des tailles</p>
+      <h2>Trouvez votre taille idéale</h2>
+      <p style="color:var(--text-muted);margin-top:8px;">Mesures en centimètres. Nos caftans sont conçus avec une coupe fluide.</p>
+      <table class="size-guide-table">
+        <thead>
+          <tr><th>Taille</th><th>Poitrine</th><th>Taille</th><th>Hanches</th><th>Longueur</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>S</strong></td><td>84-88</td><td>66-70</td><td>92-96</td><td>140</td></tr>
+          <tr><td><strong>M</strong></td><td>88-92</td><td>70-74</td><td>96-100</td><td>142</td></tr>
+          <tr><td><strong>L</strong></td><td>92-96</td><td>74-78</td><td>100-104</td><td>144</td></tr>
+          <tr><td><strong>XL</strong></td><td>96-100</td><td>78-82</td><td>104-108</td><td>146</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Sticky Mobile CTA -->
+  <div class="mobile-sticky-cta" id="mobileCta">
+    <a href="location.html" id="mobileCtaBtn" class="button button-primary">
+      Louer maintenant
+    </a>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/images/logo.png" alt="Sultana Élégance">
+        <p>L'élégance livrée jusqu'à votre porte. Location de caftans marocains haut de gamme.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="index.html">Accueil</a>
+        <a href="catalogue.html">Catalogue</a>
+        <a href="partenaires.html">Partenaires</a>
+        <a href="client.html">Espace cliente</a>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <a href="auth.html">Connexion</a>
+        <a href="auth.html">Inscription</a>
+        <a href="#">Conditions générales</a>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin:0 0 8px;">Recevez nos nouveautés et offres exclusives.</p>
+        <form class="newsletter-form lux-form"
+              onsubmit="event.preventDefault(); showToast('Inscription confirmée !', 'success'); this.reset();">
+          <input type="email" placeholder="vous@email.com" required>
+          <button type="submit" class="button button-primary" style="min-height:44px;padding:10px 18px;">OK</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Sultana Élégance. Location de caftans marocains.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts: api.js first so API object exists, then auth.js, then script.js for animations -->
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/script.js"></script>
+
+  <script>
+  (async function () {
+    const params = new URLSearchParams(window.location.search);
+    const id     = params.get('id');
+
+    // No ID → show a friendly message, keep static fallback visible
+    if (!id) {
+      document.getElementById('breadcrumbName').textContent = 'Caftan introuvable';
+      document.getElementById('detailName').textContent     = 'Aucun caftan sélectionné';
+      document.getElementById('detailDesc').textContent     = 'Revenez au catalogue pour choisir un caftan.';
+      document.getElementById('bookBtn').href               = 'catalogue.html';
+      document.getElementById('bookBtn').textContent        = 'Voir le catalogue';
+      return;
+    }
+
+    try {
+      const c = await API.getCaftan(id);
+
+      // ── Breadcrumb & title
+      document.getElementById('breadcrumbName').textContent = c.name;
+      document.title = c.name + ' | Sultana Élégance';
+
+      // ── Eyebrow
+      const eyebrowMap = { pack_mariee: 'Pack Mariée', accessoire: 'Accessoire' };
+      document.getElementById('detailEyebrow').textContent = eyebrowMap[c.category] || 'Pièce signature';
+
+      // ── Name
+      document.getElementById('detailName').textContent = c.name;
+
+      // ── Description
+      document.getElementById('detailDesc').textContent = c.description || '';
+
+      // ── Price
+      const price = parseFloat(c.price_per_day).toFixed(0);
+      document.getElementById('detailPrice').innerHTML  = `${price} MAD <span>/ jour</span>`;
+
+      // ── Book buttons
+      document.getElementById('bookBtn').href       = `location.html?id=${c.id}`;
+      document.getElementById('mobileCtaBtn').href  = `location.html?id=${c.id}`;
+      document.getElementById('mobileCtaBtn').textContent = `Louer maintenant — ${price} MAD/jour`;
+
+      // ── Main gallery image
+      const mainImg = document.getElementById('galleryMainImg');
+      mainImg.src = c.image_main || 'assets/images/placeholder.jpg';
+      mainImg.alt = c.name;
+
+      // ── Thumbnails — use gallery array if available, else just the main image
+      const thumbsEl = document.getElementById('galleryThumbs');
+      const gallery  = Array.isArray(c.images_gallery) && c.images_gallery.length
+        ? c.images_gallery
+        : [c.image_main || 'assets/images/placeholder.jpg'];
+
+      thumbsEl.innerHTML = gallery.map((src, i) => `
+        <img src="${src}" alt="Vue ${i + 1}"
+             class="${i === 0 ? 'active' : ''}"
+             data-src="${src}"
+             onerror="this.src='assets/images/placeholder.jpg'">
+      `).join('');
+
+      // Re-init gallery click after injecting thumbs
+      thumbsEl.querySelectorAll('img').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          mainImg.style.opacity = '0.5';
+          mainImg.style.transform = 'scale(1.04)';
+          setTimeout(() => {
+            mainImg.src = thumb.dataset.src;
+            mainImg.style.opacity = '1';
+            mainImg.style.transform = 'scale(1)';
+          }, 220);
+          thumbsEl.querySelectorAll('img').forEach(t => t.classList.remove('active'));
+          thumb.classList.add('active');
+        });
+      });
+
+      // ── Sizes
+      const sizesEl = document.getElementById('detailSizes');
+      const sizes   = Array.isArray(c.sizes_available) ? c.sizes_available : [];
+      if (sizes.length) {
+        sizesEl.innerHTML = sizes.map(s => `<span class="size-chip">${s}</span>`).join('');
+      }
+
+    } catch (err) {
+      console.error('Détails caftan:', err);
+      document.getElementById('breadcrumbName').textContent = 'Erreur';
+      document.getElementById('detailName').textContent     = 'Impossible de charger ce caftan.';
+      document.getElementById('detailDesc').textContent     = 'Vérifiez votre connexion et réessayez.';
+    }
+  })();
+  </script>
+</body>
+</html>

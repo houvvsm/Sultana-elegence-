@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espace cliente | Sultana Élégance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon.png">
+  <meta name="theme-color" content="#c8a24a">
+  <style>
+    .status-pending   { background: rgba(200,162,74,0.15); color: var(--accent-gold); }
+    .status-confirmed { background: rgba(76,175,80,0.15);  color: #4caf50; }
+    .status-delivered { background: rgba(33,150,243,0.15); color: #2196f3; }
+    .status-returned  { background: rgba(158,158,158,0.15);color: #9e9e9e; }
+    .status-cancelled { background: rgba(139,31,53,0.15);  color: var(--accent-rose); }
+    .empty-state { text-align:center; padding: 40px 20px; color: var(--text-muted); }
+    .empty-state a { color: var(--accent-gold); font-weight: 700; }
+  </style>
+</head>
+<body data-page="client">
+  <!-- Preloader -->
+  <div class="preloader">
+    <img src="assets/images/logo.png" alt="Sultana Élégance" class="preloader-logo">
+    <div class="preloader-bar"></div>
+    <p class="preloader-text">Préparation de votre expérience</p>
+  </div>
+
+  <div class="vignette"></div>
+  <div class="film-grain"></div>
+  <canvas id="particles-canvas"></canvas>
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Accueil Sultana Élégance">
+      <img src="assets/images/logo.png" alt="Logo Sultana Élégance">
+      <span>Sultana Élégance</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="partenaires.html">Partenaires</a>
+      <a href="client.html" class="active">Espace cliente</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+        <span class="icon-sun" style="font-size:0.8rem;z-index:1;">☀</span>
+        <span class="icon-moon" style="font-size:0.8rem;z-index:1;">☾</span>
+        <span class="toggle-thumb"></span>
+      </button>
+    </nav>
+  </header>
+
+  <nav class="breadcrumbs" aria-label="Fil d'Ariane">
+    <a href="index.html">Accueil</a> &rsaquo;
+    <span class="current">Espace cliente</span>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="page-hero reveal">
+      <p class="eyebrow">Espace cliente</p>
+      <h1 id="welcomeTitle">Bonjour…</h1>
+      <p>Retrouvez vos réservations, vos favoris et les informations utiles pour votre prochaine cérémonie.</p>
+    </section>
+
+    <!-- NEXT RESERVATION + LIST -->
+    <section class="section portal-layout">
+      <!-- Next upcoming reservation hero card -->
+      <article class="portal-card hero-card reveal" id="nextReservationCard">
+        <p class="eyebrow">Prochaine location</p>
+        <h2 id="nextCaftanName">—</h2>
+        <p id="nextReservationInfo">Aucune réservation à venir.</p>
+        <div class="price-line" id="nextReservationPrice" style="display:none;">
+          Total <strong id="nextReservationTotal"></strong>
+        </div>
+        <a class="button button-secondary" href="catalogue.html" id="nextReservationBtn">
+          Voir le catalogue
+        </a>
+      </article>
+
+      <!-- Reservation list -->
+      <div id="reservationsList">
+        <p style="color:var(--text-muted);padding:20px 0;">Chargement…</p>
+      </div>
+    </section>
+
+    <!-- PROFILE STATS -->
+    <section class="section">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow">Préférences</p>
+          <h2>Votre profil de style</h2>
+        </div>
+      </div>
+      <div class="feature-list">
+        <article class="feature-card reveal">
+          <span id="profileSize">—</span>
+          <strong>Taille enregistrée</strong>
+          <p>Votre taille habituelle pour une coupe parfaite.</p>
+        </article>
+        <article class="feature-card reveal">
+          <span id="profileFavCount">0</span>
+          <strong>Favoris</strong>
+          <p>Les caftans que vous avez sauvegardés.</p>
+        </article>
+        <article class="feature-card reveal">
+          <span id="profileResCount">0</span>
+          <strong>Réservations</strong>
+          <p>Total de vos locations passées et en cours.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/images/logo.png" alt="Sultana Élégance">
+        <p>L'élégance livrée jusqu'à votre porte. Location de caftans marocains haut de gamme à Casablanca, Rabat et Marrakech.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="index.html">Accueil</a>
+        <a href="catalogue.html">Catalogue</a>
+        <a href="partenaires.html">Partenaires</a>
+        <a href="client.html">Espace cliente</a>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <a href="auth.html">Connexion</a>
+        <a href="#">Conditions générales</a>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin:0 0 8px;">Recevez nos nouveautés et offres exclusives.</p>
+        <form class="newsletter-form lux-form"
+              onsubmit="event.preventDefault(); showToast('Inscription confirmée !', 'success'); this.reset();">
+          <input type="email" placeholder="vous@email.com" required>
+          <button type="submit" class="button button-primary" style="min-height:44px;padding:10px 18px;">OK</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Sultana Élégance. Location de caftans marocains.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+  const statusLabel = {
+    pending:   'En attente',
+    confirmed: 'Confirmée',
+    delivered: 'Livrée',
+    returned:  'Retournée',
+    cancelled: 'Annulée'
+  };
+
+  async function initClientPage() {
+    // Check session directly — avoids race condition with initAuth()
+    const session = await API.session();
+    if (!session.logged_in) {
+      window.location.href = 'auth.html';
+      return;
+    }
+
+    // Welcome
+    document.getElementById('welcomeTitle').textContent = 'Bonjour, ' + session.name.split(' ')[0] + ' 👋';
+
+    // Load reservations and favorites in parallel
+    const [reservations, favorites] = await Promise.all([
+      API.getReservations().catch(() => []),
+      API.getFavorites().catch(() => [])
+    ]);
+
+    renderNextReservation(reservations);
+    renderReservationList(reservations);
+
+    // Profile stats
+    document.getElementById('profileSize').textContent     = currentUser.size_profile || '—';
+    document.getElementById('profileFavCount').textContent = favorites.length;
+    document.getElementById('profileResCount').textContent = reservations.length;
+  }
+
+  function renderNextReservation(reservations) {
+    const upcoming = reservations.filter(r =>
+      ['pending', 'confirmed', 'delivered'].includes(r.status)
+    );
+
+    if (!upcoming.length) return; // card already shows default empty state
+
+    const next = upcoming[0];
+    const price = parseFloat(next.total_price).toFixed(0);
+
+    document.getElementById('nextCaftanName').textContent    = next.caftan_name;
+    document.getElementById('nextReservationInfo').textContent =
+      `${formatDate(next.start_date)} · ${next.duration_days} jour(s) · ${next.city || ''}`;
+    document.getElementById('nextReservationTotal').textContent = price + ' MAD';
+    document.getElementById('nextReservationPrice').style.display = '';
+    document.getElementById('nextReservationBtn').href   = 'location.html';
+    document.getElementById('nextReservationBtn').textContent = 'Réserver à nouveau';
+  }
+
+  function renderReservationList(reservations) {
+    const container = document.getElementById('reservationsList');
+
+    if (!reservations.length) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <p style="font-size:2rem;margin-bottom:12px;">👗</p>
+          <p>Vous n'avez pas encore de réservation.</p>
+          <a href="catalogue.html">Découvrir les caftans →</a>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = reservations.map(r => `
+      <article class="reservation-card reveal">
+        <img src="${r.image_main || 'assets/images/placeholder.jpg'}"
+             alt="${r.caftan_name}"
+             onerror="this.src='assets/images/placeholder.jpg'">
+        <div>
+          <strong>${r.caftan_name}</strong>
+          <p>${formatDate(r.start_date)} · ${r.duration_days} j · ${parseFloat(r.total_price).toFixed(0)} MAD · ${r.payment_method==='card'?'💳 Carte':r.payment_method==='virement'?'🏦 Virement':'🚚 Livraison'}</p>
+        </div>
+        <span class="status status-${r.status}">${statusLabel[r.status] || r.status}</span>
+      </article>
+    `).join('');
+  }
+
+  function formatDate(str) {
+    if (!str) return '—';
+    return new Date(str).toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+  }
+
+  document.addEventListener('DOMContentLoaded', initClientPage);
+  </script>
+</body>
+</html>

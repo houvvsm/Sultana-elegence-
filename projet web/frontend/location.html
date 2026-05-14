@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réservation | Sultana Élégance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+  <meta name="theme-color" content="#c8a24a">
+  <style>
+    .payment-options { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 6px; }
+    .payment-option  { position: relative; }
+    .payment-option input[type=radio] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .payment-option label {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; padding: 16px 10px; border-radius: 18px; cursor: pointer;
+      border: 1.5px solid var(--border-color); background: var(--bg-secondary);
+      transition: all 0.3s ease; text-align: center;
+      font-size: 0.85rem; font-weight: 700; color: var(--text-muted);
+    }
+    .payment-option label .pay-icon { font-size: 1.6rem; }
+    .payment-option input[type=radio]:checked + label {
+      border-color: var(--accent-gold); background: var(--bg-primary);
+      color: var(--text-primary); box-shadow: 0 0 0 4px var(--shadow-gold);
+    }
+    .pay-info-box {
+      padding: 18px; border-radius: 16px; background: var(--bg-secondary);
+      border: 1px solid var(--border-gold); display: none;
+    }
+    .pay-info-box p { margin: 0; font-size: 0.88rem; }
+    .pay-info-box strong { display: block; margin-bottom: 6px; font-size: 0.95rem; }
+    @media (max-width: 480px) { .payment-options { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body data-page="page">
+  <div class="preloader">
+    <img src="assets/images/logo.png" alt="Sultana Élégance" class="preloader-logo">
+    <div class="preloader-bar"></div>
+    <p class="preloader-text">Préparation de votre expérience</p>
+  </div>
+  <div class="vignette"></div>
+  <div class="film-grain"></div>
+  <canvas id="particles-canvas"></canvas>
+
+  <header class="site-header">
+    <a class="brand" href="index.html"><img src="assets/images/logo.png" alt="Logo Sultana Élégance"><span>Sultana Élégance</span></a>
+    <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="partenaires.html">Partenaires</a>
+      <a href="client.html">Espace cliente</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+        <span class="icon-sun" style="font-size:0.8rem;z-index:1;">☀</span>
+        <span class="icon-moon" style="font-size:0.8rem;z-index:1;">☾</span>
+        <span class="toggle-thumb"></span>
+      </button>
+    </nav>
+  </header>
+
+  <nav class="breadcrumbs" aria-label="Fil d'Ariane">
+    <a href="index.html">Accueil</a> &rsaquo; <span class="current">Réservation</span>
+  </nav>
+
+  <main>
+    <section class="form-shell reveal">
+      <div class="form-intro">
+        <p class="eyebrow">Réservation</p>
+        <h1>Planifier votre location</h1>
+        <p>Indiquez votre adresse, la date souhaitée et la durée. Ajoutez coiffure ou make-up, et choisissez votre mode de paiement.</p>
+      </div>
+
+      <form id="reservationForm" class="lux-form" novalidate>
+
+        <label for="caftan">Caftan souhaité *</label>
+        <select id="caftan" required>
+          <option value="">Chargement…</option>
+        </select>
+
+        <label>Date de début *</label>
+        <div class="calendar-widget">
+          <div class="calendar-header">
+            <button type="button" class="calendar-prev">‹</button>
+            <span class="calendar-month"></span>
+            <button type="button" class="calendar-next">›</button>
+          </div>
+          <div class="calendar-grid"></div>
+        </div>
+        <input type="hidden" id="date" required>
+
+        <label for="address">Adresse de livraison *</label>
+        <input id="address" type="text" placeholder="Votre adresse complète" required minlength="8">
+
+        <label for="city">Ville *</label>
+        <select id="city" required>
+          <option value="">Choisir une ville</option>
+          <option>Casablanca</option><option>Rabat</option>
+          <option>Marrakech</option><option>Tanger</option><option>Fès</option>
+        </select>
+
+        <label for="duration">Durée *</label>
+        <select id="duration" required>
+          <option value="">Choisir une durée</option>
+          <option value="1">1 jour</option>
+          <option value="2">2 jours</option>
+          <option value="3">3 jours</option>
+          <option value="7">1 semaine</option>
+        </select>
+
+        <label for="service">Bonus beauté</label>
+        <select id="service">
+          <option value="none">Seulement le caftan</option>
+          <option value="hair">Coiffeur partenaire (+300 MAD)</option>
+          <option value="makeup">Groupe make-up (+400 MAD)</option>
+          <option value="full">Pack complet : coiffure + make-up (+600 MAD)</option>
+        </select>
+
+        <label for="event-time">Heure de l'événement</label>
+        <input id="event-time" type="time">
+
+        <label for="note">Note spéciale</label>
+        <textarea id="note" placeholder="Taille, préférence de livraison, style souhaité…"></textarea>
+
+        <!-- PAYMENT METHOD -->
+        <label>Mode de paiement *</label>
+        <div class="payment-options">
+          <div class="payment-option">
+            <input type="radio" id="pay_delivery" name="payment_method" value="on_delivery" checked>
+            <label for="pay_delivery"><span class="pay-icon">🚚</span>Paiement à la livraison</label>
+          </div>
+          <div class="payment-option">
+            <input type="radio" id="pay_card" name="payment_method" value="card">
+            <label for="pay_card"><span class="pay-icon">💳</span>Carte bancaire</label>
+          </div>
+          <div class="payment-option">
+            <input type="radio" id="pay_virement" name="payment_method" value="virement">
+            <label for="pay_virement"><span class="pay-icon">🏦</span>Virement bancaire</label>
+          </div>
+        </div>
+
+        <div class="pay-info-box" id="cardInfo">
+          <strong>💳 Paiement par carte</strong>
+          <p style="color:var(--text-muted);">Notre équipe vous contactera après confirmation pour finaliser le paiement par carte de façon sécurisée.</p>
+        </div>
+        <div class="pay-info-box" id="virementInfo">
+          <strong>🏦 Coordonnées bancaires</strong>
+          <p style="color:var(--text-muted);">RIB : <strong style="color:var(--text-primary);">007 780 0001234567890012 26</strong><br>Titulaire : Sultana Élégance SARL<br>Référence : votre nom + date de réservation</p>
+        </div>
+
+        <!-- PRICE SUMMARY -->
+        <div class="price-calculator">
+          <h3>Récapitulatif estimé</h3>
+          <div class="price-calculator-row"><span>Caftan</span><span class="calc-caftan">—</span></div>
+          <div class="price-calculator-row"><span>Durée</span><span class="calc-days">—</span></div>
+          <div class="price-calculator-row"><span>Sous-total location</span><span class="calc-subtotal">—</span></div>
+          <div class="price-calculator-row"><span>Service beauté</span><span class="calc-service">—</span></div>
+          <div class="price-calculator-row total"><span>Total estimé</span><span class="calc-total">—</span></div>
+        </div>
+
+        <button class="button button-primary" type="submit" id="submitBtn">Confirmer la demande</button>
+        <p class="form-message" id="formMessage" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/images/logo.png" alt="Sultana Élégance">
+        <p>L'élégance livrée jusqu'à votre porte. Location de caftans marocains haut de gamme.</p>
+      </div>
+      <div class="footer-col"><h4>Navigation</h4>
+        <a href="index.html">Accueil</a><a href="catalogue.html">Catalogue</a>
+        <a href="partenaires.html">Partenaires</a><a href="client.html">Espace cliente</a>
+      </div>
+      <div class="footer-col"><h4>Informations</h4>
+        <a href="auth.html">Connexion</a><a href="#">Conditions générales</a>
+      </div>
+      <div class="footer-col"><h4>Newsletter</h4>
+        <form class="newsletter-form lux-form" onsubmit="event.preventDefault();showToast('Inscription confirmée !','success');this.reset();">
+          <input type="email" placeholder="vous@email.com" required>
+          <button type="submit" class="button button-primary" style="min-height:44px;padding:10px 18px;">OK</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Sultana Élégance.</p></div>
+  </footer>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+  const caftanPrices = {};  // Number-keyed map
+  const serviceFees  = { none:0, hair:300, makeup:400, full:600 };
+
+  // Load caftans
+  async function loadCaftanOptions() {
+    const sel = document.getElementById('caftan');
+    try {
+      const list = await API.getCaftans();
+      sel.innerHTML = '<option value="">Choisir un caftan</option>';
+      list.forEach(c => {
+        caftanPrices[Number(c.id)] = parseFloat(c.price_per_day); // Number key
+        const o = document.createElement('option');
+        o.value = c.id;
+        o.textContent = `${c.name} — ${parseFloat(c.price_per_day).toFixed(0)} MAD/j`;
+        sel.appendChild(o);
+      });
+      const urlId = new URLSearchParams(window.location.search).get('id');
+      if (urlId) sel.value = urlId;
+      updateCalc();
+    } catch { sel.innerHTML = '<option value="">Erreur — rechargez la page</option>'; }
+  }
+
+  // Update price calculator
+  function updateCalc() {
+    const sel      = document.getElementById('caftan');
+    const id       = Number(sel.value);
+    const days     = parseInt(document.getElementById('duration').value) || 0;
+    const svc      = serviceFees[document.getElementById('service').value] || 0;
+    // Fallback: parse price from option text if caftanPrices lookup misses
+    let price = caftanPrices[id] || 0;
+    if (!price && sel.selectedIndex > 0) {
+      const txt = sel.options[sel.selectedIndex].textContent;
+      const m = txt.match(/([\d]+)\s*MAD/);
+      if (m) price = parseInt(m[1]);
+    }
+    const sub      = price * days;
+    const total    = sub + svc;
+    const s = sel => document.querySelector(sel);
+    s('.calc-caftan').textContent   = price ? `${price} MAD × ${days||'?'} j` : '—';
+    s('.calc-days').textContent     = days  ? `${days} jour(s)` : '—';
+    s('.calc-subtotal').textContent = sub   ? `${sub} MAD`      : '—';
+    s('.calc-service').textContent  = svc   ? `+${svc} MAD`     : '—';
+    s('.calc-total').textContent    = total ? `${total} MAD`     : '—';
+  }
+
+  ['caftan','duration','service'].forEach(id =>
+    document.getElementById(id).addEventListener('change', updateCalc)
+  );
+
+  // Payment info panels
+  document.querySelectorAll('input[name="payment_method"]').forEach(r => {
+    r.addEventListener('change', () => {
+      document.getElementById('cardInfo').style.display     = r.value==='card'     ? 'block':'none';
+      document.getElementById('virementInfo').style.display = r.value==='virement' ? 'block':'none';
+    });
+  });
+
+  // Submit
+  document.getElementById('reservationForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const msg = document.getElementById('formMessage');
+    const btn = document.getElementById('submitBtn');
+    msg.textContent = ''; msg.className = 'form-message';
+
+    // Direct session check
+    let session;
+    try { session = await API.session(); }
+    catch { msg.textContent='Erreur réseau.'; msg.classList.add('error'); return; }
+
+    if (!session.logged_in) {
+      showToast('Connectez-vous pour réserver','error');
+      setTimeout(() => window.location.href='auth.html', 1200);
+      return;
+    }
+
+    const caftanId = document.getElementById('caftan').value;
+    const dateVal  = document.getElementById('date').value;
+    const duration = parseInt(document.getElementById('duration').value)||0;
+    const address  = document.getElementById('address').value.trim();
+    const city     = document.getElementById('city').value;
+    const payment  = document.querySelector('input[name="payment_method"]:checked')?.value||'on_delivery';
+
+    if (!caftanId) { msg.textContent='Choisissez un caftan.';         msg.classList.add('error'); return; }
+    if (!dateVal)  { msg.textContent='Sélectionnez une date.';        msg.classList.add('error'); return; }
+    if (!duration) { msg.textContent='Choisissez une durée.';         msg.classList.add('error'); return; }
+    if (!address)  { msg.textContent="Entrez l'adresse de livraison.";msg.classList.add('error'); return; }
+    if (!city)     { msg.textContent='Choisissez une ville.';         msg.classList.add('error'); return; }
+
+    // Compute end_date
+    const sd = new Date(dateVal), ed = new Date(sd);
+    ed.setDate(ed.getDate() + duration - 1);
+    const endDateStr = ed.toISOString().split('T')[0];
+
+    btn.disabled=true; btn.textContent='Envoi en cours…';
+
+    try {
+      const res = await API.createReservation({
+        caftan_id:        caftanId,
+        start_date:       dateVal,
+        end_date:         endDateStr,
+        duration:         duration,
+        delivery_address: address,
+        city,
+        service_type:     document.getElementById('service').value,
+        event_time:       document.getElementById('event-time').value||'',
+        notes:            document.getElementById('note').value||'',
+        payment_method:   payment
+      });
+
+      if (res.success) {
+        showToast('Réservation confirmée ! ✓','success');
+        msg.textContent = `Demande enregistrée — total : ${res.total} MAD. Redirection…`;
+        msg.style.color = '#4caf50';
+        e.target.reset(); updateCalc();
+        setTimeout(() => window.location.href='client.html', 2200);
+      } else {
+        msg.textContent = res.error||'Erreur lors de la réservation.';
+        msg.classList.add('error');
+        btn.disabled=false; btn.textContent='Confirmer la demande';
+      }
+    } catch {
+      msg.textContent='Erreur réseau. Vérifiez XAMPP.';
+      msg.classList.add('error');
+      btn.disabled=false; btn.textContent='Confirmer la demande';
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', loadCaftanOptions);
+  </script>
+</body>
+</html>

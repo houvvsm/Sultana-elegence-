@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partenaires | Sultana Élégance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon.png">
+  <meta name="theme-color" content="#c8a24a">
+</head>
+<body data-page="page">
+  <!-- Preloader -->
+  <div class="preloader">
+    <img src="assets/images/logo.png" alt="Sultana Élégance" class="preloader-logo">
+    <div class="preloader-bar"></div>
+    <p class="preloader-text">Préparation de votre expérience</p>
+  </div>
+
+  <div class="vignette"></div>
+  <div class="film-grain"></div>
+  <canvas id="particles-canvas"></canvas>
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Accueil Sultana Élégance">
+      <img src="assets/images/logo.png" alt="Logo Sultana Élégance">
+      <span>Sultana Élégance</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="partenaires.html" class="active">Partenaires</a>
+      <a href="client.html">Espace cliente</a>
+      <a href="auth.html">Connexion</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+        <span class="icon-sun" style="font-size:0.8rem;z-index:1;">☀</span>
+        <span class="icon-moon" style="font-size:0.8rem;z-index:1;">☾</span>
+        <span class="toggle-thumb"></span>
+      </button>
+    </nav>
+  </header>
+
+  <nav class="breadcrumbs" aria-label="Fil d'Ariane">
+    <a href="index.html">Accueil</a> &rsaquo;
+    <span class="current">Partenaires</span>
+  </nav>
+
+  <main>
+    <section class="page-hero reveal">
+      <p class="eyebrow">Collaborations</p>
+      <h1>Boutiques & beauté partenaires</h1>
+      <p>Les boutiques de caftans peuvent proposer leurs pièces à la location. Les coiffeurs et groupes make-up peuvent aussi rejoindre notre réseau événementiel.</p>
+    </section>
+
+    <section class="section portal-layout">
+      <article class="portal-card hero-card reveal">
+        <p class="eyebrow">Pour les boutiques</p>
+        <h2>Louez vos caftans avec Sultana Élégance</h2>
+        <p>Nous mettons vos pièces en valeur, recevons les demandes clientes, organisons les dates et vous aidons à suivre les disponibilités.</p>
+        <a class="button button-secondary" href="#partner-form">Proposer une collaboration</a>
+      </article>
+
+      <div class="feature-list">
+        <article class="feature-card reveal">
+          <span>01</span>
+          <strong>Catalogue partagé</strong>
+          <p>Vos caftans apparaissent dans une sélection premium.</p>
+        </article>
+        <article class="feature-card reveal">
+          <span>02</span>
+          <strong>Demandes qualifiées</strong>
+          <p>Les clientes renseignent date, adresse, durée et options.</p>
+        </article>
+        <article class="feature-card reveal">
+          <span>03</span>
+          <strong>Organisation</strong>
+          <p>Nous coordonnons caftan, coiffure, make-up et livraison.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section admin-grid" id="partner-form">
+
+      <!-- BOUTIQUE FORM -->
+      <article class="admin-panel reveal">
+        <p class="eyebrow">Boutique de caftans</p>
+        <h2>Demande de collaboration</h2>
+        <form id="boutiqueForm" class="lux-form" novalidate>
+          <label for="shop-name">Nom de la boutique *</label>
+          <input id="shop-name" type="text" placeholder="Ex: Boutique Amal Caftan" required minlength="3">
+
+          <label for="shop-city">Ville *</label>
+          <input id="shop-city" type="text" placeholder="Casablanca, Rabat, Marrakech…" required>
+
+          <label for="shop-phone">Téléphone *</label>
+          <input id="shop-phone" type="tel" placeholder="+212 6 00 00 00 00" required minlength="8">
+
+          <label for="shop-email">Email</label>
+          <input id="shop-email" type="email" placeholder="boutique@email.com">
+
+          <label for="pieces">Nombre de caftans à proposer *</label>
+          <input id="pieces" type="number" placeholder="Ex: 12" required min="1">
+
+          <label for="shop-message">Message</label>
+          <textarea id="shop-message" placeholder="Décrivez vos caftans, vos prix et vos disponibilités"></textarea>
+
+          <button class="button button-primary" type="submit">Envoyer la demande</button>
+          <p class="form-message" id="boutiqueMsg" aria-live="polite"></p>
+        </form>
+      </article>
+
+      <!-- BEAUTY FORM -->
+      <article class="admin-panel reveal">
+        <p class="eyebrow">Coiffure & make-up</p>
+        <h2>Rejoindre le réseau beauté</h2>
+        <form id="beautyForm" class="lux-form" novalidate>
+          <label for="beauty-name">Nom ou groupe *</label>
+          <input id="beauty-name" type="text" placeholder="Nom du coiffeur ou groupe make-up" required minlength="3">
+
+          <label for="beauty-type">Service *</label>
+          <select id="beauty-type" required>
+            <option value="">Choisir</option>
+            <option value="hair">Coiffure</option>
+            <option value="makeup">Make-up</option>
+            <option value="both">Coiffure et make-up</option>
+          </select>
+
+          <label for="beauty-city">Ville *</label>
+          <input id="beauty-city" type="text" placeholder="Votre ville" required>
+
+          <label for="beauty-phone">Téléphone *</label>
+          <input id="beauty-phone" type="tel" placeholder="+212 6 00 00 00 00" required minlength="8">
+
+          <label for="beauty-email">Email</label>
+          <input id="beauty-email" type="email" placeholder="contact@email.com">
+
+          <button class="button button-primary" type="submit">Rejoindre le réseau</button>
+          <p class="form-message" id="beautyMsg" aria-live="polite"></p>
+        </form>
+      </article>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/images/logo.png" alt="Sultana Élégance">
+        <p>L'élégance livrée jusqu'à votre porte. Location de caftans marocains haut de gamme à Casablanca, Rabat et Marrakech.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="index.html">Accueil</a>
+        <a href="catalogue.html">Catalogue</a>
+        <a href="partenaires.html">Partenaires</a>
+        <a href="client.html">Espace cliente</a>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <a href="auth.html">Connexion</a>
+        <a href="#">Conditions générales</a>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin:0 0 8px;">Recevez nos nouveautés et offres exclusives.</p>
+        <form class="newsletter-form lux-form"
+              onsubmit="event.preventDefault(); showToast('Inscription confirmée !', 'success'); this.reset();">
+          <input type="email" placeholder="vous@email.com" required>
+          <button type="submit" class="button button-primary" style="min-height:44px;padding:10px 18px;">OK</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Sultana Élégance. Location de caftans marocains.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/script.js"></script>
+
+  <script>
+  // ── Boutique form ──
+  document.getElementById('boutiqueForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('boutiqueMsg');
+    const btn = e.target.querySelector('button[type=submit]');
+    msg.textContent = '';
+    msg.className = 'form-message';
+
+    const name  = document.getElementById('shop-name').value.trim();
+    const city  = document.getElementById('shop-city').value.trim();
+    const phone = document.getElementById('shop-phone').value.trim();
+    const pieces = document.getElementById('pieces').value;
+
+    if (!name || !city || !phone || !pieces) {
+      msg.textContent = 'Veuillez remplir tous les champs obligatoires.';
+      msg.classList.add('error'); return;
+    }
+
+    btn.disabled = true; btn.textContent = 'Envoi…';
+
+    try {
+      const result = await API.submitPartner({
+        type:         'boutique',
+        name:         name,
+        city:         city,
+        phone:        phone,
+        email:        document.getElementById('shop-email').value.trim(),
+        pieces_count: pieces,
+        message:      document.getElementById('shop-message').value.trim()
+      });
+
+      if (result.success) {
+        showToast('Demande envoyée ✓', 'success');
+        msg.textContent = result.message || 'Votre demande a bien été reçue. Nous vous contacterons bientôt.';
+        msg.style.color = '#4caf50';
+        e.target.reset();
+      } else {
+        msg.textContent = result.error || 'Erreur lors de l\'envoi.';
+        msg.classList.add('error');
+      }
+    } catch {
+      msg.textContent = 'Erreur réseau.';
+      msg.classList.add('error');
+    }
+
+    btn.disabled = false; btn.textContent = 'Envoyer la demande';
+  });
+
+  // ── Beauty form ──
+  document.getElementById('beautyForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('beautyMsg');
+    const btn = e.target.querySelector('button[type=submit]');
+    msg.textContent = '';
+    msg.className = 'form-message';
+
+    const name  = document.getElementById('beauty-name').value.trim();
+    const type  = document.getElementById('beauty-type').value;
+    const city  = document.getElementById('beauty-city').value.trim();
+    const phone = document.getElementById('beauty-phone').value.trim();
+
+    if (!name || !type || !city || !phone) {
+      msg.textContent = 'Veuillez remplir tous les champs obligatoires.';
+      msg.classList.add('error'); return;
+    }
+
+    btn.disabled = true; btn.textContent = 'Envoi…';
+
+    try {
+      const result = await API.submitPartner({
+        type:         'beauty',
+        name:         name,
+        city:         city,
+        phone:        phone,
+        email:        document.getElementById('beauty-email').value.trim(),
+        service_type: type
+      });
+
+      if (result.success) {
+        showToast('Demande envoyée ✓', 'success');
+        msg.textContent = result.message || 'Bienvenue dans le réseau Sultana Élégance !';
+        msg.style.color = '#4caf50';
+        e.target.reset();
+      } else {
+        msg.textContent = result.error || 'Erreur lors de l\'envoi.';
+        msg.classList.add('error');
+      }
+    } catch {
+      msg.textContent = 'Erreur réseau.';
+      msg.classList.add('error');
+    }
+
+    btn.disabled = false; btn.textContent = 'Rejoindre le réseau';
+  });
+  </script>
+</body>
+</html>
